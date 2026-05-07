@@ -1,0 +1,129 @@
+SLIDE 1 (Hook):
+"One architectural pattern cuts your token consumption by 40-60%.
+
+Here's how MCPs execute it."
+
+---
+
+SLIDE 2 (Problem):
+"Why does prompting cost so much?
+
+Every LLM call consumes tokens. Iterative prompting multiplies that cost.
+
+Example: You ask the LLM to validate data, parse JSON, transform format.
+Each attempt = 2,000 tokens.
+10 attempts = 20,000 tokens wasted.
+
+This is the expensive way."
+
+---
+
+SLIDE 3 (Intro Solution):
+"Model Context Protocol (MCP) changes the game.
+
+MCPs can execute code directly—without tokens consumed.
+Results return to the LLM.
+The LLM sees the output, not the token overhead.
+
+Architecture shift: LLM → decides → MCP executes → LLM continues."
+
+---
+
+SLIDE 4 (Flow):
+"The execution flow in 5 steps:
+
+1. LLM gets a request
+2. LLM decides: 'I need to run code for this'
+3. MCP server executes the code
+4. Results return (no tokens spent here)
+5. LLM continues with clean data
+
+The efficiency gain? MCPs handle the heavy lifting."
+
+---
+
+SLIDE 5 (Example 1):
+"Real example: Data validation
+
+OLD way (pure prompting):
+'Please validate this JSON'
++ show full dataset
++ multiple validation attempts
+= 8,000 tokens per request
+
+NEW way (MCP execution):
+MCP runs: validate_json(data)
+Returns: 'Valid ✓' or error list
+= 200 tokens per request
+
+Savings: 97% reduction"
+
+---
+
+SLIDE 6 (Example 2):
+"Real example: CSV to JSON transformation
+
+OLD: Ask LLM to parse CSV → JSON
+Problem: Hallucinations, format errors, retries
+Result: Inconsistent, expensive, slow
+
+NEW: MCP executes parser
+Input: Raw CSV
+Output: Perfect JSON
+Result: 100% consistent, 90% fewer tokens
+
+Code handles structure. LLM focuses on reasoning."
+
+---
+
+SLIDE 7 (Why It Matters):
+"This pattern is powerful because:
+
+1. Cost reduction - Direct token savings
+2. Speed - Execute instantly vs iterate
+3. Reliability - Code is deterministic, LLM is probabilistic
+4. Scalability - Offload work to server, not model
+
+This is how production systems scale."
+
+---
+
+SLIDE 8 (Use Cases):
+"Where MCPs truly shine:
+
+✅ Data validation & error checking
+✅ File system operations (read/write)
+✅ API calls + result parsing
+✅ Complex calculations
+✅ Multi-step deterministic logic
+
+❌ Where it struggles:
+Creative generation, analysis without data, reasoning tasks
+
+Best practice: Use both. MCPs for execution, LLM for reasoning."
+
+---
+
+SLIDE 9 (Mental Shift):
+"The question every engineer should ask:
+
+'Does this task NEED the LLM, or can code handle it?'
+
+- If code can do it precisely → Use MCP
+- If you need reasoning/creativity → Use LLM
+- Usually: Both in sequence
+
+This shift is the key to efficient AI systems."
+
+---
+
+SLIDE 10 (CTA):
+"What to do now:
+
+💾 SAVE this for your MCP setup checklist
+👉 SHARE with your team (they need this)
+📚 Deep dive: Read the MCP spec on GitHub
+🔗 DM me your token budget reduction
+
+Real question: What's the biggest token waste in your system?
+Comment below."
